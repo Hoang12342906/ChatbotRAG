@@ -1,0 +1,9 @@
+Xin chào|Chào bạn! Tôi có thể giúp gì cho bạn?
+Bạn tên là gì?|Tôi là chatbot AI, sẵn sàng hỗ trợ bạn!
+Thời tiết hôm nay thế nào?|Xin lỗi, tôi không thể cập nhật thời tiết ngay lúc này.
+Làm thế nào để học Python?|Bạn có thể bắt đầu với Python bằng cách học cú pháp cơ bản và thực hành viết mã.
+Làm sao để giữ sức khỏe tốt?|Hãy duy trì chế độ ăn uống lành mạnh, tập luyện thể dục và nghỉ ngơi đầy đủ.
+Tôi có thể làm gì vào cuối tuần?|Bạn có thể đi dã ngoại, đọc sách hoặc học một kỹ năng mới.
+Ngôn ngữ lập trình nào dễ học nhất?|Python là một ngôn ngữ lập trình dễ học và phổ biến cho người mới bắt đầu.
+Cách nâng cao kỹ năng giao tiếp?|Thực hành giao tiếp hàng ngày, lắng nghe và học từ những người giao tiếp giỏi.
+Tâm trạng tốt lên như thế nào?|Hãy làm những việc bạn yêu thích, duy trì lối sống tích cực và kết nối với những người tích cực.

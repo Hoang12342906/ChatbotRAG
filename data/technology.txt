@@ -1,0 +1,6 @@
+Công nghệ AI và máy học:
+    - Trí tuệ nhân tạo (AI) là lĩnh vực giúp máy móc có khả năng học tập và ra quyết định.
+    - Machine Learning (ML) là một nhánh của AI giúp máy tính học từ dữ liệu mà không cần lập trình trực tiếp.
+    - Mô hình GPT của OpenAI có khả năng xử lý ngôn ngữ tự nhiên tiên tiến.
+    - Hugging Face cung cấp nhiều mô hình mã nguồn mở cho xử lý ngôn ngữ tự nhiên (NLP).
+    

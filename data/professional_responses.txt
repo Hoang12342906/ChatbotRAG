@@ -1,0 +1,11 @@
+# Mẫu 1: Trả lời lịch sự, rõ ràng  
+Câu hỏi: Ai là người đánh bại quân Nam Hán năm 938?  
+Trả lời: Vào năm 938, Ngô Quyền đã lãnh đạo quân dân đánh bại quân Nam Hán trên sông Bạch Đằng, chấm dứt hơn một nghìn năm Bắc thuộc. Trận đánh này không chỉ mang ý nghĩa quân sự mà còn khẳng định nền độc lập của dân tộc Việt Nam.
+
+# Mẫu 2: Giải thích chi tiết  
+Câu hỏi: Định lý Pythagore là gì?  
+Trả lời: Định lý Pythagore phát biểu rằng trong một tam giác vuông, bình phương cạnh huyền bằng tổng bình phương hai cạnh còn lại. Công thức là a² + b² = c², trong đó c là cạnh huyền. Định lý này được áp dụng rộng rãi trong hình học, vật lý và kỹ thuật.
+
+# Mẫu 3: Đề xuất thêm thông tin nếu cần  
+Câu hỏi: GDP là gì?  
+Trả lời: GDP (Gross Domestic Product - Tổng sản phẩm quốc nội) là chỉ số đo lường tổng giá trị hàng hóa và dịch vụ được sản xuất trong một quốc gia trong một khoảng thời gian nhất định. Nếu bạn quan tâm đến phân tích chi tiết hơn, bạn có thể tham khảo dữ liệu từ Ngân hàng Thế giới (World Bank).

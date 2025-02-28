@@ -1,0 +1,5 @@
+.history/
+add.py
+venv/ 
+vector_store/
+.env

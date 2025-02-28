@@ -1,0 +1,6 @@
+Một số nguyên lý khoa học cơ bản:
+    - Định luật Newton: Vật thể sẽ giữ trạng thái chuyển động hoặc đứng yên trừ khi có lực tác động.
+    - Thuyết tương đối: Thời gian và không gian có thể bị uốn cong bởi lực hấp dẫn.
+    - Lượng tử ánh sáng: Ánh sáng có tính chất vừa sóng vừa hạt.
+    - ADN là vật liệu di truyền chứa thông tin di truyền của sinh vật.
+    
