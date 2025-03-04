@@ -2,7 +2,9 @@ import os
 import time
 import logging
 from dotenv import load_dotenv
-from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
+from huggingface_hub import InferenceClient
+
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
@@ -10,6 +12,8 @@ from langchain.prompts import PromptTemplate
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.tools import Tool
 from langchain.utilities import SerpAPIWrapper
+from langchain_core.runnables import RunnableLambda
+from langchain.schema.output_parser import StrOutputParser
 
 # Load biến môi trường
 load_dotenv()
@@ -68,14 +72,50 @@ def create_vector_store(chunks, persist_directory="vector_store"):
 
 # Khởi tạo Hugging Face AI
 def initialize_llm():
-    return HuggingFaceEndpoint(
-        repo_id="mistralai/Mistral-7B-Instruct-v0.2",
-        huggingfacehub_api_token=os.getenv("HUGGINGFACE_API_KEY"),
-        max_new_tokens=150,  # Giới hạn câu trả lời ngắn gọn
-        temperature=0.1,
-        repetition_penalty=1.2  # Tránh lặp ý
+    client = InferenceClient(
+        model="mistralai/Mistral-7B-Instruct-v0.2", 
+        token=os.getenv("HUGGINGFACE_API_KEY")
     )
+    
+    def generate_response(input_value):
+        # Kiểm tra và xử lý đầu vào
+        if isinstance(input_value, dict):
+            context = input_value.get('context', '')
+            question = input_value.get('question', '')
+        elif isinstance(input_value, str):
+            context = ''
+            question = input_value
+        else:
+            context = ''
+            question = str(input_value)
+        
+        # Tạo prompt theo template ban đầu
+        full_prompt = f"""
+        Bạn là một trợ lý AI chính xác và chuyên nghiệp. Hãy trả lời **thẳng vào câu hỏi** dựa trên dữ liệu có sẵn.  
+        Nếu không tìm thấy thông tin, hãy **nói rõ rằng bạn không biết** thay vì đoán bừa.  
 
+        📌 **Quy tắc trả lời**:  
+        1️⃣ **Trả lời trực tiếp**, không lan man.  
+        2️⃣ **Không thêm thông tin ngoài lề**.  
+        3️⃣ **Nếu có thể, trích dẫn nguồn dữ liệu**.  
+        4️⃣ **Nếu không biết, hãy nói thẳng rằng không có thông tin.**  
+
+        🔎 **Dữ liệu hỗ trợ**:  
+        {context}  
+
+        📢 **Câu hỏi**: {question}  
+        🎯 **Trả lời chính xác**:  
+        """
+        
+        # Sử dụng InferenceClient để sinh văn bản
+        response = client.text_generation(
+            full_prompt, 
+            max_new_tokens=150, 
+            temperature=0.1
+        )
+        return response
+
+    return RunnableLambda(generate_response)
 
 # Thiết lập Google Search
 def setup_google_search():
@@ -98,28 +138,6 @@ def setup_rag():
     llm = initialize_llm()
     google_search = setup_google_search()
 
-    # Prompt template
-    template = """
-    Bạn là một trợ lý AI chính xác và chuyên nghiệp. Hãy trả lời **thẳng vào câu hỏi** dựa trên dữ liệu có sẵn.  
-    Nếu không tìm thấy thông tin, hãy **nói rõ rằng bạn không biết** thay vì đoán bừa.  
-
-    📌 **Quy tắc trả lời**:  
-    1️⃣ **Trả lời trực tiếp**, không lan man.  
-    2️⃣ **Không thêm thông tin ngoài lề**.  
-    3️⃣ **Nếu có thể, trích dẫn nguồn dữ liệu**.  
-    4️⃣ **Nếu không biết, hãy nói thẳng rằng không có thông tin.**  
-
-    🔎 **Dữ liệu hỗ trợ**:  
-    {context}  
-
-    📢 **Câu hỏi**: {question}  
-    🎯 **Trả lời chính xác**:  
-    """
-
-
-
-    prompt = PromptTemplate(template=template, input_variables=["context", "question"])
-
     # Hàm truy xuất dữ liệu trước khi tìm kiếm trên Google
     def retrieve_and_search(query):
         # Nếu người dùng chỉ chào hỏi, trả về phản hồi đơn giản mà không truy xuất dữ liệu
@@ -141,7 +159,6 @@ def setup_rag():
 
     return (
         {"context": RunnablePassthrough() | retrieve_and_search, "question": RunnablePassthrough()}
-        | prompt
         | llm
     )
 
